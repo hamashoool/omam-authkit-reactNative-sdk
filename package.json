@@ -21,11 +21,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hamashoool/omam-authkit-react-native.git"
+    "url": "hhttps://github.com/hamashoool/omam-authkit-reactNative-sdk.git"
   },
-  "homepage": "https://github.com/hamashoool/omam-authkit-react-native#readme",
+  "homepage": "https://github.com/hamashoool/omam-authkit-reactNative-sdk.git",
   "bugs": {
-    "url": "https://github.com/hamashoool/omam-authkit-react-native/issues"
+    "url": "https://github.com/hamashoool/omam-authkit-reactNative-sdk.git/issues"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
