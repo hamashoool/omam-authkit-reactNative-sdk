@@ -1,0 +1,114 @@
+{
+  "name": "@omam/authkit-react-native",
+  "version": "1.0.0",
+  "description": "Official React Native SDK for OmamAuthKit OAuth Provider",
+  "keywords": [
+    "oauth",
+    "oauth2",
+    "authentication",
+    "authkit",
+    "omam",
+    "typescript",
+    "pkce",
+    "sso",
+    "react-native",
+    "expo",
+    "mobile",
+    "biometric",
+    "deep-linking"
+  ],
+  "author": "Osman <osman@hamashool.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hamashoool/omam-authkit-react-native.git"
+  },
+  "homepage": "https://github.com/hamashoool/omam-authkit-react-native#readme",
+  "bugs": {
+    "url": "https://github.com/hamashoool/omam-authkit-react-native/issues"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "react-native": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "react-native": "./src/index.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "release": "npm run build && npm publish --access public"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "@react-native-async-storage/async-storage": "^2.1.0",
+    "@react-native-community/netinfo": "^11.4.1",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.17.9",
+    "@types/react": "^18.3.18",
+    "@types/react-native": "^0.73.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "eslint-plugin-react-native": "^5.0.0",
+    "expo": "~52.0.0",
+    "expo-auth-session": "~6.0.2",
+    "expo-crypto": "~14.0.1",
+    "expo-linking": "~7.0.3",
+    "expo-local-authentication": "~15.0.1",
+    "expo-secure-store": "~14.0.0",
+    "expo-web-browser": "~14.0.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.4.2",
+    "react": "^18.3.1",
+    "react-native": "^0.76.5",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  },
+  "peerDependencies": {
+    "@react-native-async-storage/async-storage": ">=1.0.0",
+    "@react-native-community/netinfo": ">=11.0.0",
+    "expo": ">=50.0.0",
+    "expo-auth-session": ">=5.0.0",
+    "expo-crypto": ">=13.0.0",
+    "expo-linking": ">=6.0.0",
+    "expo-local-authentication": ">=14.0.0",
+    "expo-secure-store": ">=13.0.0",
+    "expo-web-browser": ">=13.0.0",
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0"
+  },
+  "peerDependenciesMeta": {
+    "expo-local-authentication": {
+      "optional": true
+    },
+    "expo-secure-store": {
+      "optional": true
+    }
+  }
+}

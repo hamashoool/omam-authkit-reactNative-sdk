@@ -1,0 +1,29 @@
+# Source files (we publish dist/)
+src/
+tsconfig.json
+
+# Tests
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+**/__tests__/
+coverage/
+
+# Development files
+.eslintrc.js
+.prettierrc
+.prettierignore
+jest.config.js
+tsconfig.json
+
+# IDE
+.idea/
+.vscode/
+
+# Misc
+.DS_Store
+*.log
+.git/
+.github/
+node_modules/
