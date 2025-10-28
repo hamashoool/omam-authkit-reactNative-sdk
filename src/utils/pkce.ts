@@ -1,5 +1,5 @@
-import * as Crypto from 'expo-crypto';
-import { PKCEParams, CodeChallengeMethod } from '../types';
+import * as Crypto from "expo-crypto";
+import { PKCEParams, CodeChallengeMethod } from "../types";
 
 /**
  * Generate a random code verifier for PKCE
@@ -7,12 +7,13 @@ import { PKCEParams, CodeChallengeMethod } from '../types';
  * @returns Random code verifier string
  */
 export function generateCodeVerifier(length: number = 128): string {
-  const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  const charset =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
 
   // Generate random bytes
   const randomBytes = Crypto.getRandomBytes(length);
 
-  let result = '';
+  let result = "";
   for (let i = 0; i < length; i++) {
     result += charset[randomBytes[i] % charset.length];
   }
@@ -26,10 +27,7 @@ export function generateCodeVerifier(length: number = 128): string {
  * @returns Base64url-encoded string
  */
 function base64UrlEncode(str: string): string {
-  return str
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
+  return str.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
 }
 
 /**
@@ -40,9 +38,9 @@ function base64UrlEncode(str: string): string {
  */
 export async function generateCodeChallenge(
   codeVerifier: string,
-  method: CodeChallengeMethod = 'S256'
+  method: CodeChallengeMethod = "S256",
 ): Promise<string> {
-  if (method === 'plain') {
+  if (method === "plain") {
     return codeVerifier;
   }
 
@@ -50,7 +48,7 @@ export async function generateCodeChallenge(
   const hash = await Crypto.digestStringAsync(
     Crypto.CryptoDigestAlgorithm.SHA256,
     codeVerifier,
-    { encoding: Crypto.CryptoEncoding.BASE64 }
+    { encoding: Crypto.CryptoEncoding.BASE64 },
   );
 
   return base64UrlEncode(hash);
@@ -61,7 +59,9 @@ export async function generateCodeChallenge(
  * @param method The challenge method ('S256' or 'plain')
  * @returns Promise resolving to PKCE parameters
  */
-export async function generatePKCEParams(method: CodeChallengeMethod = 'S256'): Promise<PKCEParams> {
+export async function generatePKCEParams(
+  method: CodeChallengeMethod = "S256",
+): Promise<PKCEParams> {
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = await generateCodeChallenge(codeVerifier, method);
 

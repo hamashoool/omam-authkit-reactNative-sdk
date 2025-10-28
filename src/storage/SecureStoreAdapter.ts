@@ -1,6 +1,6 @@
-import * as SecureStore from 'expo-secure-store';
-import { StorageAdapter } from '../types';
-import { StorageError } from '../errors';
+import * as SecureStore from "expo-secure-store";
+import { StorageAdapter } from "../types";
+import { StorageError } from "../errors";
 
 /**
  * SecureStore adapter for React Native/Expo
@@ -10,7 +10,7 @@ import { StorageError } from '../errors';
 export class SecureStoreAdapter implements StorageAdapter {
   private prefix: string;
 
-  constructor(prefix: string = 'omam-authkit:') {
+  constructor(prefix: string = "omam-authkit:") {
     this.prefix = prefix;
   }
 
@@ -31,7 +31,7 @@ export class SecureStoreAdapter implements StorageAdapter {
     } catch (error) {
       throw new StorageError(
         `Failed to get item from secure storage: ${key}`,
-        error
+        error,
       );
     }
   }
@@ -45,7 +45,7 @@ export class SecureStoreAdapter implements StorageAdapter {
     } catch (error) {
       throw new StorageError(
         `Failed to set item in secure storage: ${key}`,
-        error
+        error,
       );
     }
   }
@@ -59,7 +59,7 @@ export class SecureStoreAdapter implements StorageAdapter {
     } catch (error) {
       throw new StorageError(
         `Failed to remove item from secure storage: ${key}`,
-        error
+        error,
       );
     }
   }
@@ -72,27 +72,26 @@ export class SecureStoreAdapter implements StorageAdapter {
   async clear(): Promise<void> {
     try {
       const knownKeys = [
-        'access_token',
-        'refresh_token',
-        'token_type',
-        'expires_at',
-        'user',
-        'user_cached_at',
-        'pkce_verifier',
-        'oauth_state'
+        "access_token",
+        "refresh_token",
+        "token_type",
+        "expires_at",
+        "user",
+        "user_cached_at",
+        "pkce_verifier",
+        "oauth_state",
       ];
 
       // Remove all known keys
       await Promise.all(
-        knownKeys.map(key => this.removeItem(key).catch(() => {
-          // Ignore errors for missing keys
-        }))
+        knownKeys.map((key) =>
+          this.removeItem(key).catch(() => {
+            // Ignore errors for missing keys
+          }),
+        ),
       );
     } catch (error) {
-      throw new StorageError(
-        'Failed to clear secure storage',
-        error
-      );
+      throw new StorageError("Failed to clear secure storage", error);
     }
   }
 }

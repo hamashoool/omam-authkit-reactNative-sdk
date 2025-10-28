@@ -1,7 +1,22 @@
-import React, { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
-import { AuthKitClient } from '../client';
-import { User, AuthKitConfig, AuthState, TokenResponse, RegistrationData, UpdateProfileData, SocialProvider } from '../types';
-import { EVENTS } from '../utils/constants';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
+import { AuthKitClient } from "../client";
+import {
+  User,
+  AuthKitConfig,
+  AuthState,
+  TokenResponse,
+  RegistrationData,
+  UpdateProfileData,
+  SocialProvider,
+} from "../types";
+import { EVENTS } from "../utils/constants";
 
 interface AuthContextValue extends AuthState {
   login: () => Promise<void>;
@@ -36,13 +51,13 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
   // Initialize auth state on mount
   useEffect(() => {
     initializeAuth();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Setup event listeners
   useEffect(() => {
     const handleUserLoggedIn = (user: User) => {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         isAuthenticated: true,
         user,
@@ -61,14 +76,14 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
     };
 
     const handleUserUpdated = (user: User) => {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         user,
       }));
     };
 
     const handleAuthError = (error: Error) => {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         error,
         isLoading: false,
@@ -76,14 +91,14 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
     };
 
     const handleTokenRefreshed = (tokens: TokenResponse) => {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         tokens: {
           accessToken: tokens.access_token,
           refreshToken: tokens.refresh_token,
           tokenType: tokens.token_type,
           expiresAt: Date.now() + tokens.expires_in * 1000,
-          scopes: tokens.scope.split(' '),
+          scopes: tokens.scope.split(" "),
         },
       }));
     };
@@ -93,7 +108,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
         isAuthenticated: false,
         user: null,
         isLoading: false,
-        error: new Error('Session expired'),
+        error: new Error("Session expired"),
         tokens: null,
       });
     };
@@ -122,7 +137,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
    */
   const initializeAuth = useCallback(async () => {
     try {
-      setState(prev => ({ ...prev, isLoading: true }));
+      setState((prev) => ({ ...prev, isLoading: true }));
 
       const isAuthenticated = await client.isAuthenticated();
 
@@ -160,10 +175,10 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
    */
   const login = useCallback(async () => {
     try {
-      setState(prev => ({ ...prev, isLoading: true, error: null }));
+      setState((prev) => ({ ...prev, isLoading: true, error: null }));
       await client.login();
     } catch (error) {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         isLoading: false,
         error: error as Error,
@@ -177,10 +192,10 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
    */
   const logout = useCallback(async () => {
     try {
-      setState(prev => ({ ...prev, isLoading: true }));
+      setState((prev) => ({ ...prev, isLoading: true }));
       await client.logout();
     } catch (error) {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         isLoading: false,
         error: error as Error,
@@ -192,44 +207,50 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
   /**
    * Register new user
    */
-  const register = useCallback(async (data: RegistrationData) => {
-    try {
-      setState(prev => ({ ...prev, isLoading: true, error: null }));
-      await client.register(data);
-      // After registration, user needs to login
-      setState(prev => ({ ...prev, isLoading: false }));
-    } catch (error) {
-      setState(prev => ({
-        ...prev,
-        isLoading: false,
-        error: error as Error,
-      }));
-      throw error;
-    }
-  }, [client]);
+  const register = useCallback(
+    async (data: RegistrationData) => {
+      try {
+        setState((prev) => ({ ...prev, isLoading: true, error: null }));
+        await client.register(data);
+        // After registration, user needs to login
+        setState((prev) => ({ ...prev, isLoading: false }));
+      } catch (error) {
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+          error: error as Error,
+        }));
+        throw error;
+      }
+    },
+    [client],
+  );
 
   /**
    * Update user profile
    */
-  const updateProfile = useCallback(async (data: UpdateProfileData): Promise<User> => {
-    try {
-      setState(prev => ({ ...prev, isLoading: true, error: null }));
-      const user = await client.updateProfile(data);
-      setState(prev => ({
-        ...prev,
-        user,
-        isLoading: false,
-      }));
-      return user;
-    } catch (error) {
-      setState(prev => ({
-        ...prev,
-        isLoading: false,
-        error: error as Error,
-      }));
-      throw error;
-    }
-  }, [client]);
+  const updateProfile = useCallback(
+    async (data: UpdateProfileData): Promise<User> => {
+      try {
+        setState((prev) => ({ ...prev, isLoading: true, error: null }));
+        const user = await client.updateProfile(data);
+        setState((prev) => ({
+          ...prev,
+          user,
+          isLoading: false,
+        }));
+        return user;
+      } catch (error) {
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+          error: error as Error,
+        }));
+        throw error;
+      }
+    },
+    [client],
+  );
 
   /**
    * Refresh access token
@@ -238,7 +259,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
     try {
       return await client.refreshAccessToken();
     } catch (error) {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         error: error as Error,
       }));
@@ -249,19 +270,22 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
   /**
    * Login with social provider
    */
-  const loginWithSocial = useCallback(async (provider: SocialProvider) => {
-    try {
-      setState(prev => ({ ...prev, isLoading: true, error: null }));
-      await client.loginWithSocial(provider);
-    } catch (error) {
-      setState(prev => ({
-        ...prev,
-        isLoading: false,
-        error: error as Error,
-      }));
-      throw error;
-    }
-  }, [client]);
+  const loginWithSocial = useCallback(
+    async (provider: SocialProvider) => {
+      try {
+        setState((prev) => ({ ...prev, isLoading: true, error: null }));
+        await client.loginWithSocial(provider);
+      } catch (error) {
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+          error: error as Error,
+        }));
+        throw error;
+      }
+    },
+    [client],
+  );
 
   const value: AuthContextValue = {
     ...state,
@@ -284,7 +308,7 @@ export function AuthProvider({ children, config }: AuthProviderProps) {
 export function useAuthContext(): AuthContextValue {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuthContext must be used within an AuthProvider');
+    throw new Error("useAuthContext must be used within an AuthProvider");
   }
   return context;
 }

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import * as LocalAuthentication from 'expo-local-authentication';
-import { BiometricResult, BiometricOptions, BiometricType } from '../types';
-import { BiometricError } from '../errors';
+import { useState, useEffect } from "react";
+import * as LocalAuthentication from "expo-local-authentication";
+import { BiometricResult, BiometricOptions, BiometricType } from "../types";
+import { BiometricError } from "../errors";
 
 /**
  * useBiometric hook - provides biometric authentication methods
@@ -27,23 +27,30 @@ export function useBiometric() {
         const enrolled = await LocalAuthentication.isEnrolledAsync();
         setIsEnrolled(enrolled);
 
-        const types = await LocalAuthentication.supportedAuthenticationTypesAsync();
+        const types =
+          await LocalAuthentication.supportedAuthenticationTypesAsync();
         const supportedBiometricTypes: BiometricType[] = [];
 
-        if (types.includes(LocalAuthentication.AuthenticationType.FINGERPRINT)) {
-          supportedBiometricTypes.push('fingerprint');
+        if (
+          types.includes(LocalAuthentication.AuthenticationType.FINGERPRINT)
+        ) {
+          supportedBiometricTypes.push("fingerprint");
         }
-        if (types.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION)) {
-          supportedBiometricTypes.push('facial_recognition');
+        if (
+          types.includes(
+            LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION,
+          )
+        ) {
+          supportedBiometricTypes.push("facial_recognition");
         }
         if (types.includes(LocalAuthentication.AuthenticationType.IRIS)) {
-          supportedBiometricTypes.push('iris');
+          supportedBiometricTypes.push("iris");
         }
 
         setSupportedTypes(supportedBiometricTypes);
       }
     } catch (error) {
-      console.error('Error checking biometric availability:', error);
+      console.error("Error checking biometric availability:", error);
       setIsAvailable(false);
       setIsEnrolled(false);
     }
@@ -52,20 +59,26 @@ export function useBiometric() {
   /**
    * Authenticate with biometrics
    */
-  const authenticate = async (options?: BiometricOptions): Promise<BiometricResult> => {
+  const authenticate = async (
+    options?: BiometricOptions,
+  ): Promise<BiometricResult> => {
     try {
       if (!isAvailable) {
-        throw new BiometricError('Biometric authentication is not available on this device');
+        throw new BiometricError(
+          "Biometric authentication is not available on this device",
+        );
       }
 
       if (!isEnrolled) {
-        throw new BiometricError('No biometric credentials enrolled on this device');
+        throw new BiometricError(
+          "No biometric credentials enrolled on this device",
+        );
       }
 
       const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: options?.promptMessage || 'Authenticate to continue',
-        cancelLabel: options?.cancelLabel || 'Cancel',
-        fallbackLabel: options?.fallbackLabel || 'Use Passcode',
+        promptMessage: options?.promptMessage || "Authenticate to continue",
+        cancelLabel: options?.cancelLabel || "Cancel",
+        fallbackLabel: options?.fallbackLabel || "Use Passcode",
         disableDeviceFallback: options?.disableDeviceFallback || false,
       });
 
@@ -77,7 +90,7 @@ export function useBiometric() {
       } else {
         return {
           success: false,
-          error: result.error || 'Authentication failed',
+          error: result.error || "Authentication failed",
         };
       }
     } catch (error) {
@@ -85,9 +98,9 @@ export function useBiometric() {
         throw error;
       }
       throw new BiometricError(
-        'Biometric authentication failed',
-        error instanceof Error ? error.message : 'Unknown error',
-        error
+        "Biometric authentication failed",
+        error instanceof Error ? error.message : "Unknown error",
+        error,
       );
     }
   };

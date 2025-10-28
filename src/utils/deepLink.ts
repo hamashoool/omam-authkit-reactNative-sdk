@@ -1,6 +1,6 @@
-import * as Linking from 'expo-linking';
-import { DeepLinkParams } from '../types';
-import { DeepLinkError } from '../errors';
+import * as Linking from "expo-linking";
+import { DeepLinkParams } from "../types";
+import { DeepLinkError } from "../errors";
 
 /**
  * Parse OAuth callback URL parameters
@@ -12,7 +12,7 @@ export function parseDeepLinkUrl(url: string): DeepLinkParams {
     const { queryParams } = Linking.parse(url);
 
     if (!queryParams) {
-      throw new DeepLinkError('No query parameters found in deep link');
+      throw new DeepLinkError("No query parameters found in deep link");
     }
 
     return {
@@ -25,10 +25,7 @@ export function parseDeepLinkUrl(url: string): DeepLinkParams {
     if (error instanceof DeepLinkError) {
       throw error;
     }
-    throw new DeepLinkError(
-      'Failed to parse deep link URL',
-      error
-    );
+    throw new DeepLinkError("Failed to parse deep link URL", error);
   }
 }
 
@@ -40,10 +37,7 @@ export async function getInitialUrl(): Promise<string | null> {
   try {
     return await Linking.getInitialURL();
   } catch (error) {
-    throw new DeepLinkError(
-      'Failed to get initial URL',
-      error
-    );
+    throw new DeepLinkError("Failed to get initial URL", error);
   }
 }
 
@@ -52,10 +46,10 @@ export async function getInitialUrl(): Promise<string | null> {
  * @param handler Callback function to handle deep link URLs
  * @returns Subscription object
  */
-export function addEventListener(
-  handler: (url: string) => void
-): { remove: () => void } {
-  const subscription = Linking.addEventListener('url', (event) => {
+export function addEventListener(handler: (url: string) => void): {
+  remove: () => void;
+} {
+  const subscription = Linking.addEventListener("url", (event) => {
     handler(event.url);
   });
 
@@ -72,7 +66,7 @@ export function addEventListener(
  */
 export function buildAuthorizationUrl(
   baseUrl: string,
-  params: Record<string, string>
+  params: Record<string, string>,
 ): string {
   const url = new URL(baseUrl);
   Object.entries(params).forEach(([key, value]) => {
@@ -96,9 +90,6 @@ export async function openUrl(url: string): Promise<void> {
     if (error instanceof DeepLinkError) {
       throw error;
     }
-    throw new DeepLinkError(
-      'Failed to open URL',
-      error
-    );
+    throw new DeepLinkError("Failed to open URL", error);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@omam/authkit-react-native",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Official React Native SDK for OmamAuthKit OAuth Provider",
   "keywords": [
     "oauth",
@@ -15,13 +15,15 @@
     "expo",
     "mobile",
     "biometric",
-    "deep-linking"
+    "deep-linking",
+    "headless",
+    "custom-ui"
   ],
   "author": "Osman <osman@hamashool.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "hhttps://github.com/hamashoool/omam-authkit-reactNative-sdk.git"
+    "url": "https://github.com/hamashoool/omam-authkit-reactNative-sdk.git"
   },
   "homepage": "https://github.com/hamashoool/omam-authkit-reactNative-sdk.git",
   "bugs": {

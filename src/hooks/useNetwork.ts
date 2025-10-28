@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { NetworkStatus } from '../types';
+import { useState, useEffect, useCallback } from "react";
+import { NetworkStatus } from "../types";
 
 // Dynamically import NetInfo to avoid errors if not available
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,12 +9,14 @@ let NetInfoStateType: any = null;
 
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const netInfoModule = require('@react-native-community/netinfo');
+  const netInfoModule = require("@react-native-community/netinfo");
   NetInfo = netInfoModule.default || netInfoModule;
   NetInfoStateType = netInfoModule.NetInfoStateType;
 } catch (error) {
   // eslint-disable-next-line no-console
-  console.warn('@react-native-community/netinfo not available, network status will be mocked');
+  console.warn(
+    "@react-native-community/netinfo not available, network status will be mocked",
+  );
 }
 
 /**
@@ -24,7 +26,7 @@ try {
 export function useNetwork() {
   const [networkStatus, setNetworkStatus] = useState<NetworkStatus>({
     isConnected: Boolean(true),
-    type: 'unknown',
+    type: "unknown",
     isExpensive: Boolean(false),
   });
 
@@ -35,14 +37,14 @@ export function useNetwork() {
   const handleNetworkChange = useCallback((state: any) => {
     const isConnected = Boolean(state.isConnected ?? true);
 
-    let type: NetworkStatus['type'] = 'unknown';
+    let type: NetworkStatus["type"] = "unknown";
     if (NetInfoStateType) {
       if (state.type === NetInfoStateType.wifi) {
-        type = 'wifi';
+        type = "wifi";
       } else if (state.type === NetInfoStateType.cellular) {
-        type = 'cellular';
+        type = "cellular";
       } else if (state.type === NetInfoStateType.ethernet) {
-        type = 'ethernet';
+        type = "ethernet";
       }
     }
 
@@ -60,9 +62,11 @@ export function useNetwork() {
     }
 
     // Get initial network status
-    NetInfo.fetch().then(handleNetworkChange).catch(() => {
-      // Ignore errors
-    });
+    NetInfo.fetch()
+      .then(handleNetworkChange)
+      .catch(() => {
+        // Ignore errors
+      });
 
     // Subscribe to network status changes
     const unsubscribe = NetInfo.addEventListener(handleNetworkChange);

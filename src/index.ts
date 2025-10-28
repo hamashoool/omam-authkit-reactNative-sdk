@@ -1,11 +1,19 @@
 // Main client
-export { AuthKitClient } from './client';
+export { AuthKitClient } from "./client";
 
 // Context and Provider
-export { AuthProvider, useAuthContext } from './context/AuthContext';
+export { AuthProvider, useAuthContext } from "./context/AuthContext";
 
-// Hooks
-export { useAuth, useUser, useBiometric, useNetwork } from './hooks';
+// High-level hooks (original API)
+export { useAuth, useUser, useBiometric, useNetwork } from "./hooks";
+
+// Headless/Custom UI hooks (new API)
+export {
+  useAuthActions,
+  useAuthState,
+  useTokenManager,
+  useAuthClient,
+} from "./hooks";
 
 // Types
 export type {
@@ -29,7 +37,7 @@ export type {
   UpdateProfileData,
   Scope,
   GrantType,
-} from './types';
+} from "./types";
 
 // Errors
 export {
@@ -42,11 +50,21 @@ export {
   StorageError,
   BiometricError,
   DeepLinkError,
-} from './errors';
+} from "./errors";
 
 // Storage adapters
-export { AsyncStorageAdapter, SecureStoreAdapter } from './storage';
+export { AsyncStorageAdapter, SecureStoreAdapter } from "./storage";
 
 // Utilities
-export { generatePKCEParams, generateCodeChallenge, generateCodeVerifier, generateState } from './utils/pkce';
-export { parseDeepLinkUrl, buildAuthorizationUrl, getInitialUrl, addEventListener as addDeepLinkListener } from './utils/deepLink';
+export {
+  generatePKCEParams,
+  generateCodeChallenge,
+  generateCodeVerifier,
+  generateState,
+} from "./utils/pkce";
+export {
+  parseDeepLinkUrl,
+  buildAuthorizationUrl,
+  getInitialUrl,
+  addEventListener as addDeepLinkListener,
+} from "./utils/deepLink";

@@ -2,9 +2,13 @@
  * Base error class for all AuthKit errors
  */
 export class AuthKitError extends Error {
-  constructor(message: string, public code?: string, public details?: unknown) {
+  constructor(
+    message: string,
+    public code?: string,
+    public details?: unknown,
+  ) {
     super(message);
-    this.name = 'AuthKitError';
+    this.name = "AuthKitError";
     Object.setPrototypeOf(this, AuthKitError.prototype);
   }
 }
@@ -15,7 +19,7 @@ export class AuthKitError extends Error {
 export class AuthenticationError extends AuthKitError {
   constructor(message: string, code?: string, details?: unknown) {
     super(message, code, details);
-    this.name = 'AuthenticationError';
+    this.name = "AuthenticationError";
     Object.setPrototypeOf(this, AuthenticationError.prototype);
   }
 }
@@ -24,9 +28,13 @@ export class AuthenticationError extends AuthKitError {
  * Network error (connection failed, timeout, etc.)
  */
 export class NetworkError extends AuthKitError {
-  constructor(message: string, public statusCode?: number, details?: unknown) {
+  constructor(
+    message: string,
+    public statusCode?: number,
+    details?: unknown,
+  ) {
     super(message, statusCode?.toString(), details);
-    this.name = 'NetworkError';
+    this.name = "NetworkError";
     Object.setPrototypeOf(this, NetworkError.prototype);
   }
 }
@@ -37,7 +45,7 @@ export class NetworkError extends AuthKitError {
 export class TokenError extends AuthKitError {
   constructor(message: string, code?: string, details?: unknown) {
     super(message, code, details);
-    this.name = 'TokenError';
+    this.name = "TokenError";
     Object.setPrototypeOf(this, TokenError.prototype);
   }
 }
@@ -49,10 +57,10 @@ export class ValidationError extends AuthKitError {
   constructor(
     message: string,
     public field?: string,
-    details?: unknown
+    details?: unknown,
   ) {
     super(message, field, details);
-    this.name = 'ValidationError';
+    this.name = "ValidationError";
     Object.setPrototypeOf(this, ValidationError.prototype);
   }
 }
@@ -63,7 +71,7 @@ export class ValidationError extends AuthKitError {
 export class ConfigurationError extends AuthKitError {
   constructor(message: string, details?: unknown) {
     super(message, undefined, details);
-    this.name = 'ConfigurationError';
+    this.name = "ConfigurationError";
     Object.setPrototypeOf(this, ConfigurationError.prototype);
   }
 }
@@ -74,7 +82,7 @@ export class ConfigurationError extends AuthKitError {
 export class StorageError extends AuthKitError {
   constructor(message: string, details?: unknown) {
     super(message, undefined, details);
-    this.name = 'StorageError';
+    this.name = "StorageError";
     Object.setPrototypeOf(this, StorageError.prototype);
   }
 }
@@ -83,9 +91,13 @@ export class StorageError extends AuthKitError {
  * Biometric error (biometric authentication failed)
  */
 export class BiometricError extends AuthKitError {
-  constructor(message: string, public reason?: string, details?: unknown) {
+  constructor(
+    message: string,
+    public reason?: string,
+    details?: unknown,
+  ) {
     super(message, reason, details);
-    this.name = 'BiometricError';
+    this.name = "BiometricError";
     Object.setPrototypeOf(this, BiometricError.prototype);
   }
 }
@@ -96,7 +108,7 @@ export class BiometricError extends AuthKitError {
 export class DeepLinkError extends AuthKitError {
   constructor(message: string, details?: unknown) {
     super(message, undefined, details);
-    this.name = 'DeepLinkError';
+    this.name = "DeepLinkError";
     Object.setPrototypeOf(this, DeepLinkError.prototype);
   }
 }

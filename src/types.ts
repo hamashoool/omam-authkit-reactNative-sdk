@@ -73,7 +73,7 @@ export interface RegistrationResponse {
 /**
  * Supported social authentication providers
  */
-export type SocialProvider = 'google' | 'facebook' | 'tiktok';
+export type SocialProvider = "google" | "facebook" | "tiktok";
 
 /**
  * Social authentication configuration
@@ -92,12 +92,15 @@ export interface SocialAuthConfig {
 /**
  * OAuth 2.0 grant types
  */
-export type GrantType = 'authorization_code' | 'refresh_token' | 'client_credentials';
+export type GrantType =
+  | "authorization_code"
+  | "refresh_token"
+  | "client_credentials";
 
 /**
  * OAuth 2.0 scopes
  */
-export type Scope = 'read' | 'write' | 'profile' | 'email';
+export type Scope = "read" | "write" | "profile" | "email";
 
 /**
  * Storage adapter interface for token persistence
@@ -149,16 +152,16 @@ export interface AuthKitConfig {
  * Event types emitted by the AuthKit client
  */
 export type AuthEvent =
-  | 'token_refreshed'
-  | 'token_expired'
-  | 'auth_error'
-  | 'user_logged_in'
-  | 'user_logged_out'
-  | 'user_registered'
-  | 'user_updated'
-  | 'network_error'
-  | 'biometric_auth_success'
-  | 'biometric_auth_failed';
+  | "token_refreshed"
+  | "token_expired"
+  | "auth_error"
+  | "user_logged_in"
+  | "user_logged_out"
+  | "user_registered"
+  | "user_updated"
+  | "network_error"
+  | "biometric_auth_success"
+  | "biometric_auth_failed";
 
 /**
  * Event listener callback function
@@ -170,7 +173,7 @@ export type EventListener<T = unknown> = (data: T) => void;
  */
 export interface RequestOptions {
   /** HTTP method */
-  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   /** Request headers */
   headers?: Record<string, string>;
   /** Request body */
@@ -196,7 +199,7 @@ export interface AuthKitErrorResponse {
 /**
  * PKCE code challenge method
  */
-export type CodeChallengeMethod = 'S256' | 'plain';
+export type CodeChallengeMethod = "S256" | "plain";
 
 /**
  * PKCE parameters
@@ -229,7 +232,7 @@ export interface TokenMetadata {
 /**
  * Biometric authentication types
  */
-export type BiometricType = 'fingerprint' | 'facial_recognition' | 'iris';
+export type BiometricType = "fingerprint" | "facial_recognition" | "iris";
 
 /**
  * Biometric authentication result
@@ -264,7 +267,7 @@ export interface NetworkStatus {
   /** Whether device is connected to internet */
   isConnected: boolean;
   /** Type of network connection */
-  type?: 'wifi' | 'cellular' | 'ethernet' | 'unknown';
+  type?: "wifi" | "cellular" | "ethernet" | "unknown";
   /** Whether connection is expensive (e.g., cellular data) */
   isExpensive?: boolean;
 }

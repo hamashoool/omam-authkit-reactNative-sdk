@@ -36,3 +36,10 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+
+DEPLOYMENT_READY.md
+DEPLOYMENT.md
+*.tgz
+SECURITY.md
+SECURITY_AUDIT_FIXED.md
+SECURITY_AUDIT_REPORT.md

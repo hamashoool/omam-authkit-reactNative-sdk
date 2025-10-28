@@ -1,5 +1,5 @@
-import { useAuthContext } from '../context/AuthContext';
-import { UpdateProfileData } from '../types';
+import { useAuthContext } from "../context/AuthContext";
+import { UpdateProfileData } from "../types";
 
 /**
  * useUser hook - provides user data and profile management

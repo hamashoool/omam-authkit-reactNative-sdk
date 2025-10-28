@@ -1,5 +1,5 @@
-import { useAuthContext } from '../context/AuthContext';
-import { SocialProvider } from '../types';
+import { useAuthContext } from "../context/AuthContext";
+import { SocialProvider } from "../types";
 
 /**
  * useAuth hook - provides authentication methods

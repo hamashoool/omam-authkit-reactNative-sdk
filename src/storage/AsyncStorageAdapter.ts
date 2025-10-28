@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StorageAdapter } from '../types';
-import { StorageError } from '../errors';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StorageAdapter } from "../types";
+import { StorageError } from "../errors";
 
 /**
  * AsyncStorage adapter for React Native
@@ -9,7 +9,7 @@ import { StorageError } from '../errors';
 export class AsyncStorageAdapter implements StorageAdapter {
   private prefix: string;
 
-  constructor(prefix: string = '@omam-authkit:') {
+  constructor(prefix: string = "@omam-authkit:") {
     this.prefix = prefix;
   }
 
@@ -28,10 +28,7 @@ export class AsyncStorageAdapter implements StorageAdapter {
       const value = await AsyncStorage.getItem(this.getKey(key));
       return value;
     } catch (error) {
-      throw new StorageError(
-        `Failed to get item from storage: ${key}`,
-        error
-      );
+      throw new StorageError(`Failed to get item from storage: ${key}`, error);
     }
   }
 
@@ -42,10 +39,7 @@ export class AsyncStorageAdapter implements StorageAdapter {
     try {
       await AsyncStorage.setItem(this.getKey(key), value);
     } catch (error) {
-      throw new StorageError(
-        `Failed to set item in storage: ${key}`,
-        error
-      );
+      throw new StorageError(`Failed to set item in storage: ${key}`, error);
     }
   }
 
@@ -58,7 +52,7 @@ export class AsyncStorageAdapter implements StorageAdapter {
     } catch (error) {
       throw new StorageError(
         `Failed to remove item from storage: ${key}`,
-        error
+        error,
       );
     }
   }
@@ -72,15 +66,12 @@ export class AsyncStorageAdapter implements StorageAdapter {
       const keys = await AsyncStorage.getAllKeys();
 
       // Filter keys with our prefix
-      const authKitKeys = keys.filter(key => key.startsWith(this.prefix));
+      const authKitKeys = keys.filter((key) => key.startsWith(this.prefix));
 
       // Remove all AuthKit keys
       await AsyncStorage.multiRemove(authKitKeys);
     } catch (error) {
-      throw new StorageError(
-        'Failed to clear storage',
-        error
-      );
+      throw new StorageError("Failed to clear storage", error);
     }
   }
 }
